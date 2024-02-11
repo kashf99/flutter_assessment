@@ -19,6 +19,10 @@ class SearchPlaceView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           locationType == 0 ? 'Select Pickup Location' : 'Select Destination',
+     style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),
         ),
       ),
       body: Padding(

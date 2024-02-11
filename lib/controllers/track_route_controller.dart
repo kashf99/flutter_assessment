@@ -1,3 +1,5 @@
+import 'package:flutter_assessment/models/trip_summary.dart';
+import 'package:flutter_assessment/views/summary_view.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -9,15 +11,30 @@ import 'search_place_controller.dart';
 class LocationTrackingController extends GetxController {
   final SearchPlaceController searchPlaceController =
       Get.put(SearchPlaceController());
+// final Completer<GoogleMapController> _controller = Completer();
+//   final GoogleMapController controller = await _controller.future;
+  // _controller.complete(controller);
+  //           final GoogleMapController controller = await _controller.future;
 
+  // CameraPosition _kGooglePlex =  CameraPosition(
+  //   target: LatLng(value.latitude ,value.longitude),
+  //   zoom: 14,
+  // );
+  // controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
+
+  Completer<GoogleMapController> mapController = Completer();
   var startLocation = const LatLng(24.485000, 54.351250).obs;
   var endLocation = const LatLng(24.493000, 54.359990).obs;
-  var markers = <Marker>{}.obs;
+  var pickup = const LatLng(24.485000, 54.351250).obs;
   RxList<LatLng> routePoints = <LatLng>[].obs;
-  late Timer timer;
+  late TripSummary tripSummary;
+  var markers = <Marker>{}.obs;
   RxDouble distance = 0.0.obs;
   RxDouble amount = 0.0.obs;
-  Completer<GoogleMapController> mapController = Completer();
+  late DateTime startTime;
+  late DateTime endTime;
+  late Duration duration;
+  late Timer timer;
   int index = 0;
 
   @override
@@ -25,12 +42,13 @@ class LocationTrackingController extends GetxController {
     super.onInit();
     // initializing locations on basis of user selections
     startLocation = searchPlaceController.startLatLng.value.obs;
+    pickup = searchPlaceController.startLatLng.value.obs;
     endLocation = searchPlaceController.endLatLng.value.obs;
     // getting the route details
     fetchRoute();
   }
 
-// ROUTE DETAILS colored route is displayed between start and destination
+  // ROUTE DETAILS colored route is displayed between start and destination
   void fetchRoute() async {
     PolylinePoints polylinePoints = PolylinePoints();
 
@@ -40,7 +58,7 @@ class LocationTrackingController extends GetxController {
       PointLatLng(startLocation.value.latitude, startLocation.value.longitude),
       PointLatLng(endLocation.value.latitude, endLocation.value.longitude),
     );
-// after getting result, routeList in the getx controller is updated
+    // after getting result, routeList in the getx controller is updated
     routePoints.value = result.points
         .map(
           (point) => LatLng(
@@ -49,12 +67,13 @@ class LocationTrackingController extends GetxController {
           ),
         )
         .toList();
-// showing the movement on the route
+    // showing the movement on the route
     startLocationUpdates();
   }
 
-// SCHEDULE THE CONTINUOUS LOCATION UPDATES
+  // SCHEDULE THE CONTINUOUS LOCATION UPDATES
   void startLocationUpdates() {
+    startTime = DateTime.now();
     timer = Timer.periodic(const Duration(milliseconds: 2000), (timer) {
       if (index < routePoints.length - 1) {
         index++;
@@ -62,15 +81,19 @@ class LocationTrackingController extends GetxController {
         updateMarker(index);
       } else {
         timer.cancel();
+        endTime = DateTime.now();
+        duration = endTime.difference(startTime);
         destinationReached();
       }
     });
+
     return;
   }
 
-// SHOW THE UPDATED LOCATION OF MARKER ON SCREEN
+  // SHOW THE UPDATED LOCATION OF MARKER ON SCREEN
   void updateMarker(index) {
     markers.clear();
+
     // start location marker
     markers.add(
       Marker(
@@ -85,22 +108,6 @@ class LocationTrackingController extends GetxController {
         markerId: const MarkerId('destination'),
         position: endLocation.value,
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-      ),
-    );
-    animateCameraPosition();
-  }
-
-//CHANGING CAMERA POSITION ACCORDING TO LOCATION
-  animateCameraPosition() async {
-    GoogleMapController controller = await mapController.future;
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(
-            startLocation.value.latitude,
-            startLocation.value.longitude,
-          ),
-        ),
       ),
     );
   }
@@ -118,11 +125,19 @@ class LocationTrackingController extends GetxController {
     return totalDistance;
   }
 
-  // REACHING DESTINATION
+  // REACHING DESTINATION     // convert to KM
   destinationReached() {
-    // convert to KM
     distance.value = calculateDistance(routePoints) / 1000;
     amount.value = distance.value * 2;
-    
+    tripSummary = TripSummary(
+        cost: amount.value,
+        destination: searchPlaceController.destinationController.text,
+        distance: distance.value,
+        dropOff: searchPlaceController.destinationController.text,
+        duration: duration,
+        endTime: endTime,
+        pickup: searchPlaceController.pickupController.text,
+        startTime: startTime);
+    Get.to(() => SummaryView());
   }
 }

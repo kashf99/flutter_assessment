@@ -15,8 +15,8 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.sizeOf(context).width;
     double screenheight = MediaQuery.sizeOf(context).height;
-// email and password is required to login.
-// email must contain '@' and password must have atleast 6 charachters
+   // email and password is required to login.
+   // email must contain '@' and password must have atleast 6 charachters
     return Scaffold(
       backgroundColor: AppConstants.backgroundColor,
       body: Container(
@@ -51,7 +51,7 @@ class LoginView extends StatelessWidget {
                   error: loginController.usernameError.value,
                   onChanged: (v) {
                     loginController.validateUsername(
-                        loginController.usernameController.text);
+                        );
                   },
                   controller: loginController.usernameController,
                 ),
@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget {
                   isPassword: true,
                   onChanged: (v) {
                     loginController.validatePassword(
-                        loginController.passwordController.text);
+                       );
                   },
                   error: loginController.passwordError.value,
                   icon: const Icon(Icons.lock_open_rounded),

@@ -9,12 +9,12 @@ class LoginController extends GetxController {
   RxString passwordError = ''.obs;
 
 // validation of username / should be email
-  void validateUsername(String value) {
-    usernameError.value = GetUtils.isEmail(value) ? '' : "invalid username";
+  void validateUsername() {
+    usernameError.value = GetUtils.isEmail(usernameController.text) ? '' : "invalid username";
   }
 // validation of password / length greater than 6
-  void validatePassword(String value) {
-    passwordError.value = value.length < 6
+  void validatePassword() {
+    passwordError.value = passwordController.text.length < 6
         ? "invalid password. Must have atleast 6 charachers"
         : '';
   }

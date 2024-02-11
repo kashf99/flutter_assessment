@@ -36,8 +36,8 @@ class ChooseLocationsView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: AppConstants.darkBlueColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
               ),
 
               // vertical space

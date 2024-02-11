@@ -14,7 +14,10 @@ class TrackRouteView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Track Route'),
+        title:  const Text('Track Route',    style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),),
       ),
       body: Obx(
         () => GoogleMap(
@@ -23,6 +26,19 @@ class TrackRouteView extends StatelessWidget {
             target: controller.startLocation.value,
             zoom: 14.5,
           ),
+          onMapCreated: (con){
+con.moveCamera(CameraUpdate.newCameraPosition(
+  
+        CameraPosition(
+          zoom: 13,
+          target: LatLng(
+          controller.  startLocation.value.latitude,
+          controller.  startLocation.value.longitude,
+          ),
+        ),
+      ),);
+
+          },
           markers: controller.markers,
           polylines: {
             //showing the route
