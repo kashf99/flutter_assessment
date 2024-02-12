@@ -2,7 +2,7 @@
 
 A Trip Tracker App
 
-## Getting Started
+# Getting Started
 
 Welcome to the Flutter Trip Tracker App! This application allows users to track their trips from one location to another using Google Maps integration. Users can set their start and end locations, visualize the route on the map, and view trip summaries.
 
