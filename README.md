@@ -6,7 +6,7 @@ A new Flutter project.
 
 Welcome to the Flutter Trip Tracker App! This application allows users to track their trips from one location to another using Google Maps integration. Users can set their start and end locations, visualize the route on the map, and view trip summaries.
 
-Features
+# Features
 
 ~ Clean, Maintainable Code: The project follows Flutter conventions and best practices to ensure clean, readable, and maintainable code. Proper code organization, naming conventions, and documentation are prioritized.
 ~ State Management with GetX: GetX is used for state management throughout the application. Reactive state management is implemented using GetX's observable, reactive, and dependency injection features.
