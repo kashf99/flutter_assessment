@@ -1,4 +1,4 @@
-# Flutter Assessment (Trip Tracker)
+# Flutter Assessment
 
 A Trip Tracker App
 
