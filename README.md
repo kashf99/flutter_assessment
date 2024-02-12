@@ -1,6 +1,6 @@
 # Flutter Assessment (Trip Tracker)
 
-A new Flutter project.
+A Trip Tracker App
 
 ## Getting Started
 
