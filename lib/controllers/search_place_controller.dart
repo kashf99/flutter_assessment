@@ -10,15 +10,14 @@ import '../views/track_route_view.dart';
 class SearchPlaceController extends GetxController {
   TextEditingController pickupController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
-  TextEditingController controller = TextEditingController();
-  Rx<LatLng> startLatLng = const LatLng(24.485000, 54.351250).obs;
+   Rx<LatLng> startLatLng = const LatLng(24.485000, 54.351250).obs;
   Rx<LatLng> endLatLng = const LatLng(24.485000, 54.351250).obs;
+  TextEditingController controller = TextEditingController();
+  RxString sessionToken = '1234567890'.obs;
+  RxList<dynamic> placeList = [].obs;
   RxString locationAddress = ''.obs;
   RxBool chooseMap = false.obs;
   var uuid = const Uuid().obs;
-  RxString sessionToken = '1234567890'.obs;
-  RxList<dynamic> placeList = [].obs;
-
 
   @override
   void onInit() {
@@ -27,17 +26,20 @@ class SearchPlaceController extends GetxController {
       onChanged();
     });
   }
+
 // session token is changed on every changed query
   onChanged() {
     sessionToken.value = uuid.value.v4();
     updatePlaces();
   }
+
 // places api call and polpulating the list
   updatePlaces() async {
     placeList.value = await GetPlacesService.getSuggestion(
         controller.text, sessionToken.value);
   }
-// markers are build and updated when user taps on map 
+
+// markers are build and updated when user taps on map
   Set<Marker> buildMarkers(int locationType) {
     Set<Marker> markers = {};
     if (locationType == 0) {
@@ -62,20 +64,20 @@ class SearchPlaceController extends GetxController {
       convertCoordinatesToAddress(location, 1);
     }
   }
+
 // converting latitude, longitude to  string address
   void convertCoordinatesToAddress(LatLng loc, int type) async {
     List<Placemark> locations =
         await placemarkFromCoordinates(loc.latitude, loc.longitude);
     locationAddress.value = "${locations[0].locality} ${locations[0].street}";
-    //update addresses separately
+    // update addresses  / 0 for pickup / 1 for destination
     if (type == 0) {
-      // 0 for pickup address
       pickupController.text = locationAddress.value;
     } else {
-      //  for destination address
       destinationController.text = locationAddress.value;
     }
   }
+
 // latitude and longitude update on the basis of search address
   updateLatLng(String address, LatLng location, int locationType) {
     if (locationType == 0) {
@@ -86,16 +88,13 @@ class SearchPlaceController extends GetxController {
       destinationController.text = address;
     }
   }
+
   // actions on completion of search and choosing locations
   nextActions() {
     if (destinationController.text.isEmpty || pickupController.text.isEmpty) {
       chooseMap.value = false;
       Get.to(() => ChooseLocationsView());
-      Get.snackbar(
-        "Alert",
-       "Choose pickup and destination"
-          
-      );
+      Get.snackbar("Alert", "Choose pickup and destination");
     } else {
       // screen to track the route
       Get.to(() => TrackRouteView());

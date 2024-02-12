@@ -11,28 +11,22 @@ import 'search_place_controller.dart';
 class LocationTrackingController extends GetxController {
   final SearchPlaceController searchPlaceController =
       Get.put(SearchPlaceController());
+
   Completer<GoogleMapController> mapController = Completer();
   var startLocation = const LatLng(24.485000, 54.351250).obs;
-  var endLocation = const LatLng(24.493000, 54.359990).obs;
-  var pickup = const LatLng(24.485000, 54.351250).obs;
   RxList<LatLng> routePoints = <LatLng>[].obs;
   late TripSummary tripSummary;
   var markers = <Marker>{}.obs;
-  RxDouble distance = 0.0.obs;
-  RxDouble amount = 0.0.obs;
   late DateTime startTime;
   late DateTime endTime;
-  late Duration duration;
   late Timer timer;
   int index = 0;
 
   @override
   void onInit() {
     super.onInit();
-    // initializing locations on basis of user selections
+    // initializing location on basis of user selections
     startLocation = searchPlaceController.startLatLng.value.obs;
-    pickup = searchPlaceController.startLatLng.value.obs;
-    endLocation = searchPlaceController.endLatLng.value.obs;
     // getting the route details
     fetchRoute();
   }
@@ -45,7 +39,7 @@ class LocationTrackingController extends GetxController {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       AppConstants.apiKey,
       PointLatLng(startLocation.value.latitude, startLocation.value.longitude),
-      PointLatLng(endLocation.value.latitude, endLocation.value.longitude),
+      PointLatLng(searchPlaceController.endLatLng.value.latitude, searchPlaceController.endLatLng.value.longitude),
     );
     // after getting result, routeList in the getx controller is updated
     routePoints.value = result.points
@@ -71,7 +65,6 @@ class LocationTrackingController extends GetxController {
       } else {
         timer.cancel();
         endTime = DateTime.now();
-        duration = endTime.difference(startTime);
         destinationReached();
       }
     });
@@ -82,7 +75,6 @@ class LocationTrackingController extends GetxController {
   // SHOW THE UPDATED LOCATION OF MARKER ON SCREEN
   void updateMarker(index) {
     markers.clear();
-
     // start location marker
     markers.add(
       Marker(
@@ -95,7 +87,7 @@ class LocationTrackingController extends GetxController {
     markers.add(
       Marker(
         markerId: const MarkerId('destination'),
-        position: endLocation.value,
+        position: searchPlaceController.endLatLng.value,
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
       ),
     );
@@ -116,14 +108,14 @@ class LocationTrackingController extends GetxController {
 
   // REACHING DESTINATION     // convert to KM
   destinationReached() {
-    distance.value = calculateDistance(routePoints) / 1000;
-    amount.value = distance.value * 2;
+  double  distance = calculateDistance(routePoints) / 1000;
+
     tripSummary = TripSummary(
-        cost: amount.value,
+        cost: distance * 2,
         destination: searchPlaceController.destinationController.text,
-        distance: distance.value,
+        distance: distance,
         dropOff: searchPlaceController.destinationController.text,
-        duration: duration,
+        duration: endTime.difference(startTime),
         endTime: endTime,
         pickup: searchPlaceController.pickupController.text,
         startTime: startTime);
