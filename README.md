@@ -40,3 +40,4 @@ The project follows the MVC (Model-View-Controller) architecture pattern:
 2. Set your start and end locations for tracking.
 3. View the map to visualize the route.
 4. Once the trip is completed, view the trip summary to see details such as distance, duration, and cost.
+5. Credentials: "track@gmail.com" & "12345678"
