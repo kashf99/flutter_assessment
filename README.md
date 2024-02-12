@@ -29,10 +29,10 @@ Features
 
 The project follows the MVC (Model-View-Controller) architecture pattern:
 
-> Model: Represents data and business logic.
-> View: Represents the UI components.
-> Controller: Mediates between the model and view, handling user input and updating the UI.
-> resources: Contains some reusable basic custom widgets, services and constants.
+1. Model: Represents data and business logic.
+2. View: Represents the UI components.
+3. Controller: Mediates between the model and view, handling user input and updating the UI.
+4. Resources: Contains some reusable basic custom widgets, services and constants.
 
 # Usage Guidelines
 
