@@ -6,7 +6,7 @@ A Trip Tracker App
 
 Welcome to the Flutter Trip Tracker App! This application allows users to track their trips from one location to another using Google Maps integration. Users can set their start and end locations, visualize the route on the map, and view trip summaries.
 
-# Features
+## Features
 
 ~ Clean, Maintainable Code: The project follows Flutter conventions and best practices to ensure clean, readable, and maintainable code. Proper code organization, naming conventions, and documentation are prioritized.
 ~ State Management with GetX: GetX is used for state management throughout the application. Reactive state management is implemented using GetX's observable, reactive, and dependency injection features.
@@ -18,14 +18,14 @@ Welcome to the Flutter Trip Tracker App! This application allows users to track 
 ~ Trip Summary Display: A screen is created to present a trip summary, including start location, end location, destination, distance, start time, end time, duration, and cost calculated at a rate of 2 AED per kilometer traveled.
 ~ Error Handling: Error handling mechanisms are in place to gracefully handle exceptions, network errors, and edge cases throughout the application.
 
-# Setup Instructions
+## Setup Instructions
 
 1. Clone the repository: git clone https://github.com/kashf99/flutter_assessment.git
 2. Navigate to the project directory: cd flutter_assessment
 3. Install dependencies: flutter pub get
 4. Run the app: flutter run
 
-# Architecture Overview
+## Architecture Overview
 
 The project follows the MVC (Model-View-Controller) architecture pattern:
 
@@ -34,7 +34,7 @@ The project follows the MVC (Model-View-Controller) architecture pattern:
 3. Controller: Mediates between the model and view, handling user input and updating the UI.
 4. Resources: Contains some reusable basic custom widgets, services and constants.
 
-# Usage Guidelines
+## Usage Guidelines
 
 1. Login to the app using your credentials. Username must be an email. Password length must be greater than 6.
 2. Set your start and end locations for tracking.
