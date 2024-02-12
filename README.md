@@ -8,15 +8,15 @@ Welcome to the Flutter Trip Tracker App! This application allows users to track 
 
 Features
 
-Clean, Maintainable Code: The project follows Flutter conventions and best practices to ensure clean, readable, and maintainable code. Proper code organization, naming conventions, and documentation are prioritized.
-State Management with GetX: GetX is used for state management throughout the application. Reactive state management is implemented using GetX's observable, reactive, and dependency injection features.
-MVC Architecture: The application follows the MVC architecture pattern to separate concerns and improve maintainability. Models, views, and controllers are structured according to MVC principles.
-Google Maps Integration: Google Maps API is integrated into the application to enable tracking from one location to another. Maps, markers, and routes between two points are displayed using Google Maps.
-Login Screen with Validation: A login screen with proper validation and authentication is implemented using GetX's state management capabilities. Upon successful login, users are navigated to the map screen.
-Set Start and End Locations: Users can set their start and end locations for tracking. They can input the locations manually or select them from the map. Markers are displayed on the map for the selected locations.
-Dynamic Marker Movement: Functionality is implemented to move the start marker from its initial location to the end location dynamically. Real-time updates are utilized to visualize the movement of the marker.
-Trip Summary Display: A screen is created to present a trip summary, including start location, end location, destination, distance, start time, end time, duration, and cost calculated at a rate of 2 AED per kilometer traveled.
-Error Handling: Error handling mechanisms are in place to gracefully handle exceptions, network errors, and edge cases throughout the application.
+~ Clean, Maintainable Code: The project follows Flutter conventions and best practices to ensure clean, readable, and maintainable code. Proper code organization, naming conventions, and documentation are prioritized.
+~ State Management with GetX: GetX is used for state management throughout the application. Reactive state management is implemented using GetX's observable, reactive, and dependency injection features.
+~ MVC Architecture: The application follows the MVC architecture pattern to separate concerns and improve maintainability. Models, views, and controllers are structured according to MVC principles. 
+~ Google Maps Integration: Google Maps API is integrated into the application to enable tracking from one location to another. Maps, markers, and routes between two points are displayed using Google Maps. 
+~ Login Screen with Validation: A login screen with proper validation and authentication is implemented using GetX's state management capabilities. Upon successful login, users are navigated to the map screen.
+~ Set Start and End Locations: Users can set their start and end locations for tracking. They can input the locations manually or select them from the map. Markers are displayed on the map for the selected locations. 
+~ Dynamic Marker Movement: Functionality is implemented to move the start marker from its initial location to the end location dynamically. Real-time updates are utilized to visualize the movement of the marker. 
+~ Trip Summary Display: A screen is created to present a trip summary, including start location, end location, destination, distance, start time, end time, duration, and cost calculated at a rate of 2 AED per kilometer traveled.
+~ Error Handling: Error handling mechanisms are in place to gracefully handle exceptions, network errors, and edge cases throughout the application.
 
 # Setup Instructions
 
