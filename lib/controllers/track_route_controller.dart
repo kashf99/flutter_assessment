@@ -11,17 +11,6 @@ import 'search_place_controller.dart';
 class LocationTrackingController extends GetxController {
   final SearchPlaceController searchPlaceController =
       Get.put(SearchPlaceController());
-// final Completer<GoogleMapController> _controller = Completer();
-//   final GoogleMapController controller = await _controller.future;
-  // _controller.complete(controller);
-  //           final GoogleMapController controller = await _controller.future;
-
-  // CameraPosition _kGooglePlex =  CameraPosition(
-  //   target: LatLng(value.latitude ,value.longitude),
-  //   zoom: 14,
-  // );
-  // controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
-
   Completer<GoogleMapController> mapController = Completer();
   var startLocation = const LatLng(24.485000, 54.351250).obs;
   var endLocation = const LatLng(24.493000, 54.359990).obs;
