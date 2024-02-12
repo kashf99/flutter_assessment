@@ -30,7 +30,14 @@ class LoginController extends GetxController {
 // on validation, go to locations screen
   void login() {
     if (_loginValidator()) {
-      Get.off(() => ChooseLocationsView(), transition: Transition.rightToLeft);
+      if(usernameController.text=="track@gmail.com" && passwordController.text=="12345678"){
+   Get.off(() => ChooseLocationsView(), transition: Transition.rightToLeft);
+   
+      }else{
+        Get.snackbar('User Not Found',
+          'Login with correct user credentials. Hint: track@*****.*** and ******78',
+          backgroundColor: Colors.red);
+      }
     } else {
       Get.snackbar('Error',
           'Invalid email or password. Should be a valid email address and password must have atleast 6 charachters.',
